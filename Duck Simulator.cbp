@@ -33,7 +33,14 @@
 		</Compiler>
 		<Unit filename="Duck.cpp" />
 		<Unit filename="Duck.h" />
+		<Unit filename="FlyBehavior.h" />
+		<Unit filename="GracefulFlyBehavior.cpp" />
+		<Unit filename="GracefulFlyBehavior.h" />
 		<Unit filename="Main.cpp" />
+		<Unit filename="MallardDuck.cpp" />
+		<Unit filename="MallardDuck.h" />
+		<Unit filename="NoFlyBehavior.cpp" />
+		<Unit filename="NoFlyBehavior.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
