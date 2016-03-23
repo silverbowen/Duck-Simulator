@@ -4,79 +4,98 @@
 */
 
 
-#include "Duck.h"
 #include "MallardDuck.h"
+#include "GracefulFlyBehavior.h"
+#include "RocketFlyBehavior.h"
 #include "NoFlyBehavior.h"
 #include <memory>
 #include <iostream>
 
+
+void testWithInstance(const Duck &duck);
+void testWithPointer(Duck *duckPtr);
+void testWithUniquePointer(std::unique_ptr<Duck> &duckPtr);
+void testInstanceBehavior(Duck &duck);
+void testPointerBehavior(Duck *duckPtr);
+void testUniquePointerBehavior(std::unique_ptr<Duck> &duckPtr);
+
 int main()
 {
     // Test 00 - does it compile?
-    {
-        // scope for easier test readability
-        Duck duck; // Instantiate a generic duck?
-        std::cout << "duck is a " << duck.getID() << ".\n"; // call getID with an instance?
-    }
-    {
-        std::unique_ptr<Duck> duckPtr(new Duck);
-        std::cout << "duckPtr points to a " << duckPtr->getID() << ".\n"; // call getID with a ptr?
-    }
-    {
-        Duck* duckPtr = new Duck; // test with regular ptr
-        std::cout << "duckPtr points to a " << duckPtr->getVariableID() << ".\n"; // call getVariableID with a ptr?
-        delete duckPtr;
-    }
-    {
-        MallardDuck mallardDuck; // instantiate a MallardDuck;
-        std::cout << "mallardDuck is a " << mallardDuck.getID() << ".\n"; // call getID with an instance?
-    }
-    {
-        std::unique_ptr<MallardDuck> mallardPtr(new MallardDuck);
-        std::cout << "mallardPtr points to a " << mallardPtr->getID() << ".\n"; // call getID with a ptr?
-    }
-    {
-        Duck* mallardPtr = new MallardDuck;
-        std::cout << "mallardPtr points to a " << mallardPtr->getID() << ".\n"; // call getID polymorphically with a ptr?
-        delete mallardPtr;
-    }
-    {
-        MallardDuck* mallardPtr = new MallardDuck;
-        std::cout << "mallardPtr points to a " << mallardPtr->getVariableID() << ".\n"; // call getVariableID with a ptr?
-        delete mallardPtr;
-    }
-    {
-        Duck* mallardPtr = new MallardDuck;
-        std::cout << "mallardPtr points to a " << mallardPtr->getVariableID() << ".\n"; // call getVariableID polymorphically with a ptr?
-        delete mallardPtr;
-    }
-    {
-        MallardDuck mallardDuck;
-        mallardDuck.doFlyBehavior(); // call doFlyBehavior with an instance?
-    }
-    {
-        Duck* mallardPtr = new MallardDuck;
-        mallardPtr->doFlyBehavior(); // call doFlyBehavior with a polymorphic ptr?
-        delete mallardPtr;
-    }
-    {
-        MallardDuck mallardDuck;
-        NoFlyBehavior noFlyBehavior;
-        mallardDuck.setFlyBehavior(noFlyBehavior); // change flyBehavior at runtime
-        mallardDuck.doFlyBehavior(); // call new doFlyBehavior?
-    }
-    {
-        Duck* mallardPtr = new MallardDuck;
-        NoFlyBehavior noFlyBehavior;
-        mallardPtr->setFlyBehavior(noFlyBehavior); // change flyBehavior polymorphically at runtime with a ptr
-        mallardPtr->doFlyBehavior(); // call new doFlyBehavior?
-        delete mallardPtr;
-    }
-    {
-        Duck* mallardPtr = new MallardDuck;
-        FlyBehavior* noFlyBehavior = new NoFlyBehavior;
-        mallardPtr->setFlyBehavior(*noFlyBehavior); // change flyBehavior polymorpically at runtime with polymorphic behavior ptr
-        mallardPtr->doFlyBehavior(); // call new doFlyBehavior?
-        delete mallardPtr;
-    }
+
+    Duck duck;
+    testWithInstance(duck);
+
+    MallardDuck mallard;
+    testWithInstance(mallard);
+
+    Duck* duckPtr = &duck;
+    testWithPointer(duckPtr);
+
+    duckPtr = &mallard;
+    testWithPointer(duckPtr);
+
+    std::unique_ptr<Duck> uniqueDuckPtr(new Duck);
+    testWithUniquePointer(uniqueDuckPtr);
+
+    std::unique_ptr<Duck> uniqueMallardPtr(new MallardDuck);
+    testWithUniquePointer(uniqueMallardPtr);
+
+    GracefulFlyBehavior gracefulFlyBehavior;
+    MallardDuck gracefulMallard(gracefulFlyBehavior);
+    testInstanceBehavior(gracefulMallard);
+
+    RocketFlyBehavior rocketFlyBehavior;
+    gracefulMallard.setFlyBehavior(rocketFlyBehavior);
+    testInstanceBehavior(gracefulMallard);
+
+    NoFlyBehavior noFlyBehavior;
+    mallard.setFlyBehavior(noFlyBehavior);
+    testInstanceBehavior(mallard);
+
+    duckPtr->setFlyBehavior(gracefulFlyBehavior);
+    testPointerBehavior(duckPtr);
+
+    uniqueMallardPtr->setFlyBehavior(rocketFlyBehavior);
+    testUniquePointerBehavior(uniqueMallardPtr);
+
+    std::unique_ptr<NoFlyBehavior> noFlyBehaviorPtr(new NoFlyBehavior);
+    uniqueMallardPtr->setFlyBehavior(*noFlyBehaviorPtr);
+    testUniquePointerBehavior(uniqueMallardPtr);
+}
+
+void testWithInstance(const Duck &duck)
+{
+    std::cout << "This duck is a " << duck.getID() << ".\n";
+    std::cout << '\n';
+}
+
+void testWithPointer(Duck *duckPtr)
+{
+    std::cout << "This duckPtr points to a " << duckPtr->getID() << ".\n";
+    std::cout << '\n';
+}
+
+void testWithUniquePointer(std::unique_ptr<Duck> &uniqueDuckPtr)
+{
+    std::cout << "This unique uniqueDuckPtr points to a " << uniqueDuckPtr->getID() << ".\n";
+    std::cout << '\n';
+}
+
+void testInstanceBehavior(Duck &duck)
+{
+    duck.doFlyBehavior();
+    std::cout << '\n';
+}
+
+void testPointerBehavior(Duck *duckPtr)
+{
+    duckPtr->doFlyBehavior();
+    std::cout << '\n';
+}
+
+void testUniquePointerBehavior(std::unique_ptr<Duck> &uniqueDuckPtr)
+{
+    uniqueDuckPtr->doFlyBehavior();
+    std::cout << '\n';
 }

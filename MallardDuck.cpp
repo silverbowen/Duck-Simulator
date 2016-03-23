@@ -7,8 +7,11 @@
 
 MallardDuck::MallardDuck()
 {
-    GracefulFlyBehavior gracefulFlyBehavior;
-    flyBehavior = &gracefulFlyBehavior;
+    std::cout << "A MallardDuck is born.\n";
+}
+
+MallardDuck::MallardDuck(FlyBehavior &flyBehavior) : flyBehavior { &flyBehavior }
+{
     std::cout << "A MallardDuck is born.\n";
 }
 
@@ -30,5 +33,9 @@ std::string MallardDuck::getVariableID() const
 void MallardDuck::setFlyBehavior(FlyBehavior &flyBehavior)
 {
     this->flyBehavior = &flyBehavior;
-};
-void MallardDuck::doFlyBehavior() {flyBehavior->fly();}
+}
+
+void MallardDuck::doFlyBehavior()
+{
+    if (flyBehavior) flyBehavior->fly();
+}

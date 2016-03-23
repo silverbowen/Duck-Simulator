@@ -6,7 +6,12 @@
 #include "NoFlyBehavior.h"
 #include <iostream>
 
+NoFlyBehavior::~NoFlyBehavior()
+{
+    std::cout << "NoFlyBehavior destructor called.\n";
+};
+
 void NoFlyBehavior::fly()
 {
-    std::cout << "This is a lame Duck. It just waddles sadly.\n";
+    std::cout << "This is a lame duck. It just waddles sadly.\n";
 }

@@ -4,9 +4,11 @@
 */
 
 #pragma once
+#include <iostream>
 
 class FlyBehavior
 {
 public:
+    virtual ~FlyBehavior();
     virtual void fly() = 0;
 };

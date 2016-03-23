@@ -4,9 +4,13 @@
 */
 
 #include "GracefulFlyBehavior.h"
-#include <iostream>
+
+GracefulFlyBehavior::~GracefulFlyBehavior()
+{
+    std::cout << "GracefulFlyBehavior destructor called.\n";
+}
 
 void GracefulFlyBehavior::fly()
 {
-    std::cout << "This Duck gracefully soars through the sky.\n";
+    std::cout << "This duck gracefully soars through the sky.\n";
 }

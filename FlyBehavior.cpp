@@ -3,4 +3,9 @@
     than Java (how the book implements it).
 */
 
-#include <iostream>
+#include "FlyBehavior.h"
+
+FlyBehavior::~FlyBehavior()
+{
+    std::cout << "Base FlyBehavior destructor called.\n";
+}

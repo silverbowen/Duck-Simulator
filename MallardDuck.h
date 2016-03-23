@@ -5,13 +5,12 @@
 
 #pragma once
 #include "Duck.h"
-#include "GracefulFlyBehavior.h"
-#include "NoFlyBehavior.h"
 
 class MallardDuck : public Duck
 {
 public:
     MallardDuck();
+    MallardDuck(FlyBehavior &flyBehavior);
     ~MallardDuck();
 
     std::string getID() const;

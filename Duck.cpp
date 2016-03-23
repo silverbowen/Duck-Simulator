@@ -9,15 +9,17 @@ Duck::Duck()
 {
     std::cout << "A Duck is born.\n";
 }
+
 Duck::~Duck()
 {
-    std::cout << "Destroying Duck.\n\n";
+    std::cout << "Destroying Duck.\n";
 }
 
 std::string Duck::getID() const
 {
     return "Generic Duck";
 }
+
 std::string Duck::getVariableID() const
 {
     return variableID;

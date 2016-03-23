@@ -9,6 +9,6 @@
 class GracefulFlyBehavior : public FlyBehavior
 {
 public:
-    ~GracefulFlyBehavior() {};
+    ~GracefulFlyBehavior();
     void fly();
 };

@@ -6,9 +6,9 @@
 #pragma once
 #include "FlyBehavior.h"
 
-class NoFlyBehavior : public FlyBehavior
+class RocketFlyBehavior : public FlyBehavior
 {
 public:
-    ~NoFlyBehavior();
+    ~RocketFlyBehavior();
     void fly();
 };
