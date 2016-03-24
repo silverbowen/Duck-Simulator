@@ -12,10 +12,12 @@ class Duck
 {
 public:
     Duck();
+    Duck(const Duck& other);
+    Duck(Duck&& other);
     virtual ~Duck();
+    Duck& operator =(Duck other);
 
     virtual std::string getID() const;
-    virtual std::string getVariableID() const;
 
     virtual void setFlyBehavior(FlyBehavior &flyBehavior) {};
     virtual void doFlyBehavior() {};
@@ -28,5 +30,5 @@ public:
     void setSwim();
 
 private:
-    std::string variableID { "Generic Duck ID" };
+    std::string ID { "Generic Duck" };
 };

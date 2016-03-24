@@ -10,5 +10,6 @@ class RocketFlyBehavior : public FlyBehavior
 {
 public:
     ~RocketFlyBehavior();
+
     void fly();
 };

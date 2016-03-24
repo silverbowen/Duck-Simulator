@@ -5,21 +5,26 @@
 
 #pragma once
 #include "Duck.h"
+#include "GracefulFlyBehavior.h"
 
 class MallardDuck : public Duck
 {
 public:
     MallardDuck();
     MallardDuck(FlyBehavior &flyBehavior);
+    MallardDuck(const MallardDuck& other);
+    MallardDuck(MallardDuck&& other);
     ~MallardDuck();
+    MallardDuck& operator =(MallardDuck other);
+
 
     std::string getID() const;
-    std::string getVariableID() const;
 
     void setFlyBehavior(FlyBehavior &flyBehavior);
     void doFlyBehavior();
 
 private:
-    std::string variableID { "Mallard Duck ID" };
-    FlyBehavior* flyBehavior;
+    std::string ID { "Mallard Duck" };
+    FlyBehavior* defaultFlyBehavior{new GracefulFlyBehavior};
+    FlyBehavior* flyBehavior{defaultFlyBehavior};
 };

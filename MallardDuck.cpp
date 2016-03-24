@@ -10,24 +10,41 @@ MallardDuck::MallardDuck()
     std::cout << "A MallardDuck is born.\n";
 }
 
-MallardDuck::MallardDuck(FlyBehavior &flyBehavior) : flyBehavior { &flyBehavior }
+MallardDuck::MallardDuck(FlyBehavior &flyBehavior) : flyBehavior{&flyBehavior}
 {
     std::cout << "A MallardDuck is born.\n";
 }
 
+MallardDuck::MallardDuck(const MallardDuck& other) : ID{other.ID}, flyBehavior{other.flyBehavior}
+{
+    std::cout << "A MallardDuck copy is born.\n";
+}
+
+MallardDuck::MallardDuck(MallardDuck&& other)
+{
+    std::cout << "A MallardDuck is moved.\n";
+    ID = other.ID;
+    flyBehavior = other.flyBehavior;
+    other.ID = nullptr;
+}
+
 MallardDuck::~MallardDuck()
 {
+    delete defaultFlyBehavior;
     std::cout << "Destroying MallardDuck.\n";
+}
+
+MallardDuck& MallardDuck::operator =(MallardDuck other)
+{
+    std::cout << "A MallardDuck is assigned.\n";
+    std::swap(ID, other.ID);
+    std::swap(flyBehavior, other.flyBehavior);
+    return *this;
 }
 
 std::string MallardDuck::getID() const
 {
-    return "Mallard Duck";
-}
-
-std::string MallardDuck::getVariableID() const
-{
-    return variableID;
+    return ID;
 }
 
 void MallardDuck::setFlyBehavior(FlyBehavior &flyBehavior)

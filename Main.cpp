@@ -41,18 +41,18 @@ int main()
     std::unique_ptr<Duck> uniqueMallardPtr(new MallardDuck);
     testWithUniquePointer(uniqueMallardPtr);
 
-    GracefulFlyBehavior gracefulFlyBehavior;
-    MallardDuck gracefulMallard(gracefulFlyBehavior);
-    testInstanceBehavior(gracefulMallard);
-
-    RocketFlyBehavior rocketFlyBehavior;
-    gracefulMallard.setFlyBehavior(rocketFlyBehavior);
-    testInstanceBehavior(gracefulMallard);
-
-    NoFlyBehavior noFlyBehavior;
-    mallard.setFlyBehavior(noFlyBehavior);
     testInstanceBehavior(mallard);
 
+    RocketFlyBehavior rocketFlyBehavior;
+    mallard.setFlyBehavior(rocketFlyBehavior);
+    testInstanceBehavior(mallard);
+
+    NoFlyBehavior noFlyBehavior;
+    MallardDuck lameMallard(noFlyBehavior);
+    testInstanceBehavior(lameMallard);
+
+    duckPtr = &lameMallard;
+    GracefulFlyBehavior gracefulFlyBehavior;
     duckPtr->setFlyBehavior(gracefulFlyBehavior);
     testPointerBehavior(duckPtr);
 
@@ -62,6 +62,21 @@ int main()
     std::unique_ptr<NoFlyBehavior> noFlyBehaviorPtr(new NoFlyBehavior);
     uniqueMallardPtr->setFlyBehavior(*noFlyBehaviorPtr);
     testUniquePointerBehavior(uniqueMallardPtr);
+
+    MallardDuck copyMallard(mallard);
+    testWithInstance(copyMallard);
+    testInstanceBehavior(copyMallard);
+
+    testWithInstance(mallard);
+    testInstanceBehavior(mallard);
+
+    copyMallard.setFlyBehavior(noFlyBehavior);
+    MallardDuck assignMallard = copyMallard;
+    testWithInstance(assignMallard);
+    testInstanceBehavior(assignMallard);
+
+    testWithInstance(copyMallard);
+    testInstanceBehavior(copyMallard);
 }
 
 void testWithInstance(const Duck &duck)

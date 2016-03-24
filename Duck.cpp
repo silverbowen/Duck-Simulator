@@ -10,19 +10,31 @@ Duck::Duck()
     std::cout << "A Duck is born.\n";
 }
 
+Duck::Duck(const Duck& other) : ID{other.ID}
+{
+    std::cout << "A Duck copy is born.\n";
+}
+
+Duck::Duck(Duck&& other)
+{
+    ID = other.ID;
+    other.ID = nullptr;
+}
+
 Duck::~Duck()
 {
     std::cout << "Destroying Duck.\n";
 }
 
-std::string Duck::getID() const
+Duck& Duck::operator =(Duck other)
 {
-    return "Generic Duck";
+    std::swap(ID, other.ID);
+    return *this;
 }
 
-std::string Duck::getVariableID() const
+std::string Duck::getID() const
 {
-    return variableID;
+    return ID;
 }
 
 void Duck::doQuack() {}

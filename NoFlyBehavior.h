@@ -10,5 +10,6 @@ class NoFlyBehavior : public FlyBehavior
 {
 public:
     ~NoFlyBehavior();
+
     void fly();
 };
